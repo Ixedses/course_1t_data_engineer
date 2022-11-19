@@ -1,0 +1,70 @@
+docker ps
+docker cp voyna-i-mir-tom-2.txt 3bf11e579fb8:/home
+docker cp voyna-i-mir-tom-3.txt 3bf11e579fb8:/home
+docker cp voyna-i-mir-tom-4.txt 3bf11e579fb8:/home
+docker exec -it 3bf11e579fb8 bash
+ls
+cd /home
+ls
+hdfs dfs -copyFromLocal voyna-i-mir-tom-1.txt /user/admin/
+hdfs dfs -ls /user/admin/
+
+
+
+PS E:\Учебные материалы\Инженер данных_1Т\3. Обработка данных\3.1. Распределенные файловые системы HDFS> docker cp voyna-i-mir-tom-1.txt 3bf11e579fb8:/home
+PS E:\Учебные материалы\Инженер данных_1Т\3. Обработка данных\3.1. Распределенные файловые системы HDFS> docker cp voyna-i-mir-tom-2.txt 3bf11e579fb8:/home
+PS E:\Учебные материалы\Инженер данных_1Т\3. Обработка данных\3.1. Распределенные файловые системы HDFS> docker cp voyna-i-mir-tom-3.txt 3bf11e579fb8:/home
+PS E:\Учебные материалы\Инженер данных_1Т\3. Обработка данных\3.1. Распределенные файловые системы HDFS> docker cp voyna-i-mir-tom-4.txt 3bf11e579fb8:/home
+PS E:\Учебные материалы\Инженер данных_1Т\3. Обработка данных\3.1. Распределенные файловые системы HDFS> docker exec -it 3bf11e579fb8 bash
+root@3bf11e579fb8:/# ls
+bin  boot  dev  entrypoint.sh  etc  hadoop  hadoop-data  home  lib  lib64  media  mnt  opt  proc  root  run  run.sh  sbin  srv  sys  tmp  usr  var
+root@3bf11e579fb8:/# cd /home
+root@3bf11e579fb8:/home# ls
+voyna-i-mir-tom-1.txt  voyna-i-mir-tom-2.txt  voyna-i-mir-tom-3.txt  voyna-i-mir-tom-4.txt
+root@3bf11e579fb8:/home# hdfs dfs -mkdir /user/admin/hw_3.1
+root@3bf11e579fb8:/home# hdfs dfs -copyFromLocal voyna-i-mir-tom-1.txt /user/admin/hw_3.1/
+root@3bf11e579fb8:/home# hdfs dfs -copyFromLocal voyna-i-mir-tom-2.txt /user/admin/hw_3.1/
+root@3bf11e579fb8:/home# hdfs dfs -copyFromLocal voyna-i-mir-tom-3.txt /user/admin/hw_3.1/
+root@3bf11e579fb8:/home# hdfs dfs -copyFromLocal voyna-i-mir-tom-4.txt /user/admin/hw_3.1/
+root@3bf11e579fb8:/home# hdfs dfs -ls /user/admin/hw_3.1/
+Found 4 items
+-rw-r--r--   3 root admin     736519 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-1.txt
+-rw-r--r--   3 root admin     770324 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-2.txt
+-rw-r--r--   3 root admin     843205 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-3.txt
+-rw-r--r--   3 root admin     697960 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-4.txt
+root@3bf11e579fb8:/home# hdfs dfs -getmerge -nl /user/admin/hw_3.1/voyna-i-mir-tom-1.txt /user/admin/hw_3.1/voyna-i-mir-tom-2.txt /user/admin/hw_3.1/voyna-i-mir-tom-3.txt /user/admin/hw_3.1/voyna-i-mir-tom-4.txt /home/voyna-i-mir.txt
+root@3bf11e579fb8:/home# ls
+voyna-i-mir-tom-1.txt  voyna-i-mir-tom-2.txt  voyna-i-mir-tom-3.txt  voyna-i-mir-tom-4.txt  voyna-i-mir.txt
+root@3bf11e579fb8:/home# hdfs dfs -copyFromLocal voyna-i-mir.txt /user/admin/hw_3.1/
+Found 5 items
+-rw-r--r--   3 root admin     736519 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-1.txt
+-rw-r--r--   3 root admin     770324 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-2.txt
+-rw-r--r--   3 root admin     843205 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-3.txt
+-rw-r--r--   3 root admin     697960 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-4.txt
+-rw-r--r--   3 root admin    3048012 2022-11-19 09:38 /user/admin/hw_3.1/voyna-i-mir.txt
+root@3bf11e579fb8:/# hdfs dfs -chmod u+rwx /user/admin/hw_3.1/voyna-i-mir.txt
+root@3bf11e579fb8:/# hdfs dfs -chmod go+rx /user/admin/hw_3.1/voyna-i-mir.txt
+root@3bf11e579fb8:/# hdfs dfs -ls /user/admin/hw_3.1/
+Found 5 items
+-rw-r--r--   3 root admin     736519 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-1.txt
+-rw-r--r--   3 root admin     770324 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-2.txt
+-rw-r--r--   3 root admin     843205 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-3.txt
+-rw-r--r--   3 root admin     697960 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-4.txt
+-rwxr-xr-x   3 root admin    3048012 2022-11-19 09:38 /user/admin/hw_3.1/voyna-i-mir.txt
+root@3bf11e579fb8:/#  hdfs dfs -du -h  /user/admin/hw_3.1/voyna-i-mir.txt
+2.9 M  /user/admin/hw_3.1/voyna-i-mir.txt
+root@3bf11e579fb8:/# hdfs dfs -setrep -w 2 /user/admin/hw_3.1/voyna-i-mir.txt
+Replication 2 set: /user/admin/hw_3.1/voyna-i-mir.txt
+root@3bf11e579fb8:/# hdfs dfs -ls /user/admin/hw_3.1
+Found 5 items
+-rw-r--r--   3 root admin     736519 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-1.txt
+-rw-r--r--   3 root admin     770324 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-2.txt
+-rw-r--r--   3 root admin     843205 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-3.txt
+-rw-r--r--   3 root admin     697960 2022-11-19 09:09 /user/admin/hw_3.1/voyna-i-mir-tom-4.txt
+-rwxr-xr-x   2 root admin    3048012 2022-11-19 09:38 /user/admin/hw_3.1/voyna-i-mir.txt
+root@3bf11e579fb8:/# hdfs dfs -du -h  /user/admin/hw_3.1/
+719.3 K  /user/admin/hw_3.1/voyna-i-mir-tom-1.txt
+752.3 K  /user/admin/hw_3.1/voyna-i-mir-tom-2.txt
+823.4 K  /user/admin/hw_3.1/voyna-i-mir-tom-3.txt
+681.6 K  /user/admin/hw_3.1/voyna-i-mir-tom-4.txt
+2.9 M    /user/admin/hw_3.1/voyna-i-mir.txt
